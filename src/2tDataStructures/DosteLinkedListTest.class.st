@@ -59,7 +59,7 @@ DosteLinkedListTest >> testLinkedListHead [
 
 { #category : #tests }
 DosteLinkedListTest >> testLinkedListRemoveAt [
-	| ll removedNode |
+	| ll |
 	ll := DosteLinkedList new.
 	ll add: 17.
 	ll add: 13.
@@ -69,14 +69,14 @@ DosteLinkedListTest >> testLinkedListRemoveAt [
 	self assert: ll size equals: 4.
 	
 	ll removeAt: 2.
-	self assert: ll asOrderedCollection equals: #(17 13 9) asOrderedCollection.
+	self assert: ll asOrderedCollection equals: #(17 1 9) asOrderedCollection.
 	self assert: ll size equals: 3.
 
 	ll removeAt: 2.
-	self assert: ll asOrderedCollection equals: #(17 13) asOrderedCollection.
+	self assert: ll asOrderedCollection equals: #(17 9) asOrderedCollection.
 	self assert: ll size equals: 2.
 	
-	self assert: ll tail data equals: 13.
+	self assert: ll tail data equals: 9.
 	
 
 ]
@@ -91,20 +91,50 @@ DosteLinkedListTest >> testLinkedListRemoveAtReturnedNode [
 	ll add: 9.
 	"self assert: ll asOrderedCollection equals: #(17 13 1 9) asOrderedCollection."
 
-	removedNodeData := ll removeAt: 1.
+	removedNodeData := ll removeAt: 2.
 	self assert: removedNodeData equals: 13.
 
 ]
 
 { #category : #tests }
+DosteLinkedListTest >> testLinkedListRemoveLast [
+	| ll removedNodeData |
+	ll := DosteLinkedList new.
+	ll add: 17.
+	ll add: 2.
+	ll add: 5.
+	ll add: 89.
+
+	removedNodeData := ll removeLast.
+	self assert: removedNodeData equals: 89.
+	
+	self assert: ll size equals: 3.
+	
+   ll removeLast.
+	
+	self assert: ll size equals: 2.
+	
+	ll removeLast.
+	
+	self assert: ll size equals: 1.
+	
+	ll removeLast.
+	
+	ll removeLast.
+
+]
+
+{ #category : #tests }
 DosteLinkedListTest >> testLinkedListSize [
-	| ll |
+	| ll emptyLL |
 	ll := DosteLinkedList new.
 	ll add: 8.
 	ll add: 3.
 	ll add: 12.
-	self assert: ll size equals:  3
+	self assert: (ll isEmpty) equals:  false.
 	
+	emptyLL := DosteLinkedList new.
+	self assert: (emptyLL isEmpty) equals:  true.
 ]
 
 { #category : #tests }
